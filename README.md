@@ -2,7 +2,7 @@
 
 > **Narzędzie do inteligentnej transformacji danych według ich docelowego miejsca wykorzystania**
 
-Dr.Doc to potężne narzędzie CLI, które automatycznie przekształca dane z różnych formatów wejściowych (TXT, Markdown, JSON) do optymalnych struktur dostosowanych do konkretnego celu użycia (GitHub Repository, ChatGPT Context, Project Brief).
+Dr.Doc to potężne narzędzie dostępne jako **aplikacja CLI** oraz **Web UI**, które automatycznie przekształca dane z różnych formatów wejściowych (TXT, Markdown, JSON) do optymalnych struktur dostosowanych do konkretnego celu użycia (GitHub Repository, ChatGPT Context, Project Brief).
 
 ## 🎯 Problem
 
@@ -43,13 +43,35 @@ Często mamy dane w jednym formacie, ale potrzebujemy ich w zupełnie innej stru
 
 ```bash
 # Klonuj repozytorium
-git clone https://github.com/yourusername/drdoc.git
-cd drdoc
+git clone https://github.com/tftdatascientist/Dr.Doc.git
+cd Dr.Doc
 
-# Gotowe! Brak zewnętrznych zależności
+# Opcjonalnie: Zainstaluj Flask dla Web UI
+pip install -r requirements.txt
 ```
 
-### Podstawowe użycie
+### Użycie - Web UI 🌐
+
+**Najprostszy sposób - interfejs graficzny w przeglądarce!**
+
+```bash
+# Uruchom serwer
+python3 web/app.py
+
+# Otwórz w przeglądarce
+# http://localhost:5000
+```
+
+**Funkcje Web UI:**
+- 📝 Wklejanie tekstu lub upload pliku
+- 🔍 Auto-detekcja formatu
+- 🎯 Wybór destinacji (wizualne karty)
+- ⚙️ Konfiguracja opcji (nazwa, autor, licencja)
+- 👁️ Podgląd wyników w czasie rzeczywistym
+- 📊 Wizualizacja struktury plików
+- 💾 Tryb preview lub generowanie plików
+
+### Użycie - CLI 🖥️
 
 ```bash
 # Transformacja pliku Markdown do struktury GitHub
