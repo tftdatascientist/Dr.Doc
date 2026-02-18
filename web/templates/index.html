@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🩺 Dr.Doc - Data Transformation Tool</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🩺</span>
+                <h1>Dr.Doc</h1>
+            </div>
+            <p class="tagline">Inteligentna transformacja danych według ich docelowego wykorzystania</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="section input-section">
+                <h2>📥 DATA IN</h2>
+                <p class="section-description">Wklej lub wybierz dane wejściowe</p>
+                
+                <div class="input-methods">
+                    <!-- Text Input -->
+                    <div class="input-method">
+                        <label for="input-text">Wklej dane tekstowe:</label>
+                        <textarea 
+                            id="input-text" 
+                            placeholder="Wklej tutaj swoje dane (tekst, Markdown, JSON, etc.)&#10;&#10;Przykład:&#10;# Mój Projekt&#10;&#10;Opis projektu..."
+                            rows="12"
+                        ></textarea>
+                        <div class="char-count">
+                            <span id="char-count">0</span> znaków
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="input-method">
+                        <label for="file-input">Lub wybierz plik:</label>
+                        <div class="file-upload-area" id="file-upload-area">
+                            <input type="file" id="file-input" accept=".txt,.md,.json,.doc,.docx" hidden>
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📄</span>
+                                <p>Przeciągnij plik tutaj lub kliknij aby wybrać</p>
+                                <p class="upload-formats">Obsługiwane: TXT, MD, JSON, DOC, DOCX</p>
+                            </div>
+                            <div class="file-info" id="file-info" style="display: none;">
+                                <span class="file-icon">📄</span>
+                                <span class="file-name" id="file-name"></span>
+                                <button class="remove-file" id="remove-file">✕</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Format Detection -->
+                <div class="format-detection">
+                    <button class="btn btn-secondary" id="detect-format-btn">
+                        🔍 Wykryj format automatycznie
+                    </button>
+                    <div class="detected-format" id="detected-format" style="display: none;">
+                        <strong>Wykryty format:</strong> 
+                        <span id="format-name"></span>
+                        <span class="confidence">(<span id="confidence"></span>% pewności)</span>
+                    </div>
+                </div>
+
+                <!-- Manual Format Selection -->
+                <div class="format-selector">
+                    <label for="format-select">Lub wybierz format ręcznie:</label>
+                    <select id="format-select">
+                        <option value="auto">Auto-detekcja</option>
+                        <option value="txt">TXT - Prosty tekst</option>
+                        <option value="md">Markdown</option>
+                        <option value="json">JSON</option>
+                        <option value="doc">DOC/DOCX (planned)</option>
+                        <option value="php">PHP (planned)</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Destination Section -->
+            <section class="section destination-section">
+                <h2>🎯 SETUP DESTINATION</h2>
+                <p class="section-description">Wybierz docelowe wykorzystanie danych</p>
+                
+                <div class="destination-cards">
+                    <div class="destination-card" data-destination="github">
+                        <div class="card-icon">📦</div>
+                        <h3>GitHub Repository</h3>
+                        <p>Pełna struktura repozytorium z README, LICENSE, dokumentacją</p>
+                        <ul class="card-features">
+                            <li>README.md z badges</li>
+                            <li>Struktura docs/</li>
+                            <li>LICENSE i .gitignore</li>
+                            <li>Przykłady kodu</li>
+                        </ul>
+                    </div>
+
+                    <div class="destination-card" data-destination="chatgpt">
+                        <div class="card-icon">🤖</div>
+                        <h3>ChatGPT Context</h3>
+                        <p>Zoptymalizowany kontekst dla AI asystentów</p>
+                        <ul class="card-features">
+                            <li>Zwięzła struktura</li>
+                            <li>Optymalizacja tokenów</li>
+                            <li>Jasne sekcje</li>
+                            <li>Gotowe do AI</li>
+                        </ul>
+                    </div>
+
+                    <div class="destination-card" data-destination="project_brief">
+                        <div class="card-icon">📋</div>
+                        <h3>Project Brief</h3>
+                        <p>Profesjonalny brief projektowy</p>
+                        <ul class="card-features">
+                            <li>Executive summary</li>
+                            <li>Timeline i scope</li>
+                            <li>Stakeholderzy</li>
+                            <li>Deliverables</li>
+                        </ul>
+                        <span class="badge badge-planned">Planned</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Options Section -->
+            <section class="section options-section">
+                <h2>⚙️ Opcje</h2>
+                
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label for="project-name">Nazwa projektu:</label>
+                        <input type="text" id="project-name" placeholder="my-awesome-project">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="author">Autor:</label>
+                        <input type="text" id="author" placeholder="Twoje imię">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="description">Opis projektu:</label>
+                        <input type="text" id="description" placeholder="Krótki opis projektu">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="license">Licencja:</label>
+                        <select id="license">
+                            <option value="MIT">MIT</option>
+                            <option value="Apache-2.0">Apache 2.0</option>
+                            <option value="GPL-3.0">GPL 3.0</option>
+                            <option value="BSD-3-Clause">BSD 3-Clause</option>
+                            <option value="Unlicense">Unlicense</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="option-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="preview-mode" checked>
+                        <span>Tryb podglądu (nie generuj plików)</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <button class="btn btn-primary btn-large" id="transform-btn">
+                    🔄 Transformuj dane
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="section results-section" id="results-section" style="display: none;">
+                <h2>📤 DATA OUT</h2>
+                
+                <!-- Loading -->
+                <div class="loading" id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Przetwarzanie danych...</p>
+                </div>
+
+                <!-- Error -->
+                <div class="error-message" id="error-message" style="display: none;">
+                    <span class="error-icon">❌</span>
+                    <p id="error-text"></p>
+                </div>
+
+                <!-- Success -->
+                <div class="results-content" id="results-content" style="display: none;">
+                    <!-- Stats -->
+                    <div class="results-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="files-count">0</span>
+                            <span class="stat-label">plików</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="destination-type">-</span>
+                            <span class="stat-label">destinacja</span>
+                        </div>
+                    </div>
+
+                    <!-- File Tree -->
+                    <div class="file-tree-container">
+                        <h3>Struktura plików:</h3>
+                        <pre class="file-tree" id="file-tree"></pre>
+                    </div>
+
+                    <!-- File Preview -->
+                    <div class="files-preview">
+                        <h3>Podgląd plików:</h3>
+                        <div id="files-list"></div>
+                    </div>
+
+                    <!-- Download Button -->
+                    <div class="download-section">
+                        <button class="btn btn-success btn-large" id="download-btn">
+                            💾 Pobierz jako ZIP
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🩺 Dr.Doc - Open Source Data Transformation Tool</p>
+            <p>
+                <a href="https://github.com/tftdatascientist/Dr.Doc" target="_blank">GitHub</a> | 
+                <a href="#" id="about-link">About</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

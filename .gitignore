@@ -16,6 +16,11 @@ venv/
 env/
 ENV/
 *.egg-info/
+.pytest_cache/
+
+# Flask
+instance/
+.webassets-cache
 
 # Dr.Doc
 data/output/
@@ -27,6 +32,7 @@ data/output/
 .idea/
 *.swp
 *.swo
+*.sublime-*
 
 # OS
 .DS_Store
@@ -35,3 +41,9 @@ desktop.ini
 
 # Node (if needed)
 node_modules/
+package-lock.json
+
+# Build
+dist/
+build/
+*.egg
